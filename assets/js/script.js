@@ -233,54 +233,20 @@ var saveTasks = function() {
 }
 
 var loadTasks = function() {
-  // get tasks from local storage
-  // convert tasks from the string format back into an array of objects
-  var tasks = JSON.parse(localStorage.getItem('tasks'));
-  //  iterate through a tasks array and create task elements on the page from it
-  // debugger;
-  for (let i = 0; i < tasks.length; i++) {
-  const i = taskIdCounter;
-console.log(tasks[i]);
+  var savedTasks = localStorage.getItem("tasks");
 
-  var listItemEl = document.createElement("li");
-  listItemEl.className = "task-item";   
-  listItemEl.setAttribute("data-task-id", tasks[i].id);
-console.log(listItemEl);
-
-  var taskInfoEl = document.createElement("div");
-    taskInfoEl.className = "task-info";
-console.log(taskInfoEl);
-
-  taskInfoEl.innerHTML = "<h3 class='task-name'>" + tasks[i].name + "</h3><span class='task-type'>" + tasks[i].type + "</span>";
-  listItemEl.appendChild(taskInfoEl);
-  console.log(taskInfoEl);
-
-  var taskActionsEl = createTaskActions(tasks[i].id)
-  listItemEl.appendChild(taskActionsEl)
-  console.log(listItemEl);
-  
-  if(tasks[i].status === "to do") {
-    listItemEl.querySelector("select[name='status-change']").selectedIndex = 0;
-    tasksToDoEl.appendChild(listItemEl)
-    console.log(tasksToDoEl);
-    
-  } else if (tasks[i].status === "in progress") {
-    listItemEl.querySelector("select[name='status-change']").selectedIndex = 1;
-    tasksInProgressEl.appendChild(listItemEl)
-console.log(tasksInProressEl);
-
-
-  } else if (tasks[i].status === "complete") {
-    listItemEl.querySelector("select[name='status-change']").selectedIndex = 2
-    listItemEl.appendChild(tasksCompletedEl)
-    console.log(tasksCompletedEl);
-
-  };
-    taskIdCounter++;
-    console.log(taskIdCounter);
-    
+  if (!savedTasks) {
+    return false;
   }
-  }
+
+  savedTasks = JSON.parse(savedTasks);
+
+  // loop through savedTasks array
+for (var i = 0; i < savedTasks.length; i++) {
+  // pass each task object into the `createTaskEl()` function
+  createTaskEl(savedTasks[i]);
+}
+}
   // console.log(tasks[i]);
 
 formEl.addEventListener("submit", taskFormHandler);
