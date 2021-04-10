@@ -124,12 +124,14 @@ var taskButtonHandler = function(event) {
   // edit button was clicked
   if (targetEl.matches(".edit-btn")) {
     var taskId = targetEl.getAttribute("data-task-id");
+    console.log(taskId);
+    
     editTask(taskId);
   } 
   // delete button was clicked
   else if (targetEl.matches(".delete-btn")) {
     var taskId = targetEl.getAttribute("data-task-id");
-    deleteTask(taskId);
+    // deleteTask(taskId);
   }
 
   // create new array to hold updated list of tasks
@@ -155,6 +157,7 @@ var deleteTask = function(taskId) {
 };
 
 var editTask =function(taskId) {
+console.log(taskId);
 
   document.querySelector("#save-task").textContent = "Save Task";
   
